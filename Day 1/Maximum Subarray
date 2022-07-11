@@ -1,0 +1,14 @@
+ int maxSubArray(vector<int>& nums) {
+        int sum=0;
+        int i,j;
+        int p=INT_MIN;
+        for(i=0;i<nums.size();i++){
+            sum=0;
+            for(j=i;j<nums.size();j++){
+                sum+=nums[j];
+                cout<<sum<<endl;
+            }
+            p=max(p,sum);
+        }
+        return p;
+    }
