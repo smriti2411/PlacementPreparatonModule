@@ -1,0 +1,17 @@
+int nCr(int n, int r){
+        if(r>n/2) r=n-r;
+        long long p=1, q=1;
+        while(r--){
+            p*=n;
+            q*=(r+1);
+            n--;
+            int zz = __gcd(p, q);
+            p/=zz;
+            q/=zz;
+        }
+        return p;
+    }
+    
+    int uniquePaths(int m, int n) {
+        return nCr(n+m-2, n-1);
+    }
