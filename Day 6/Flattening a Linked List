@@ -1,0 +1,61 @@
+Node *flatten(Node *root)
+{
+   
+   Node* temp =root,*temp1=root;
+   while(root->next)
+   {
+       temp=root->next;
+       temp1=root;
+           root->next=temp->next;
+       while(temp1 && temp)
+       {
+           if(temp1->data < temp->data)
+           {
+               if(temp1->bottom==NULL)
+               {
+                   Node *newNode1 = new Node(temp->data);
+                   temp1->bottom=newNode1;
+                   temp1=newNode1;
+                   temp = temp->bottom;
+               }
+             else
+             {
+               temp1 = temp1->bottom;
+             }
+               
+           }
+       
+           else
+           {
+               
+               Node* temp3 = root;
+               if(temp3==temp1)
+               {
+                    Node *newNode = new Node(temp->data);
+                    newNode->bottom=temp3;
+                    newNode->next=root->next;
+                    root=newNode;
+                    temp=temp->bottom;
+               }
+               else
+               {
+               while(temp3->bottom!=temp1)
+               {
+                   temp3=temp3->bottom;
+               }
+               Node *newNode = new Node(temp->data);
+               temp3->bottom=newNode;
+               newNode->bottom = temp1;
+               temp=temp->bottom;
+               if(!temp)
+               {
+               temp1=root;
+               }
+               }
+               
+           }
+           
+       }
+   }
+   return root;
+}
