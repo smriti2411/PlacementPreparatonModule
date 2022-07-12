@@ -1,0 +1,27 @@
+Node* copyRandomList(Node* head) {
+         map<Node*, set<Node*>> randtocurr;
+        map<Node*, Node*> oritonew;
+        Node* temp = head;
+        Node* newh = new Node(0);
+        Node* h = newh;
+        while(temp) {
+            h->next = new Node(temp->val);
+            h = h->next;
+            oritonew[temp] = h;
+            if(oritonew.find(temp->random) != oritonew.end()) {
+                h->random = oritonew[temp->random];
+            } else {
+                randtocurr[temp->random].insert(temp);
+            }
+            if(randtocurr.find(temp) != randtocurr.end()) {
+                auto st = randtocurr[temp];
+                while(st.size()) {
+                    oritonew[*st.begin()]->random = h;
+                    st.erase(st.begin());
+                }
+                randtocurr.erase(temp);
+            }
+            temp = temp->next;
+        }
+        return newh->next;
+    }
