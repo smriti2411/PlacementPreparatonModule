@@ -1,0 +1,24 @@
+int maxMeetings(int start[], int end[], int n)
+    {
+        // Your code here
+         int count=1;
+        vector<vector<int>> meetings;
+        for(int i=0; i<n; i++){
+            meetings.push_back({start[i],end[i]});
+        }
+        
+        sort(meetings.begin(),meetings.end());
+        
+        int low=meetings[0][1];
+        for(int i=1; i<n ; i++){
+            if(meetings[i][0]>low){
+                count++;
+                low=meetings[i][1];
+            }
+            else{
+                low=min(low,meetings[i][1]);
+            }
+        }
+        
+        return count;
+    }

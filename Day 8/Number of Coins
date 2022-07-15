@@ -1,0 +1,14 @@
+	int minCoins(int coins[], int M, int V) 
+	{ 
+	    // Your code goes here
+	    vector <long> dp(V+1, INT_MAX);
+	dp[0] = 0;
+	for(int i=0; i<M; i++){
+	    for(int j=1; j<=V; j++){
+	        if(j-coins[i] >= 0)
+	            dp[j] = min(dp[j], 1+dp[j-coins[i]]);
+	    }
+	}
+	return dp[V] == INT_MAX ? -1 : dp[V];
+	} 
+	  
