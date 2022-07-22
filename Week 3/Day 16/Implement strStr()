@@ -1,0 +1,15 @@
+int strStr(string haystack, string needle) {
+        
+        int pos = 0;
+        int index;
+        if(haystack.length()==0){
+            return 0;
+        }
+        else{
+            while((index = haystack.find(needle, pos)) != string::npos) {
+                pos = index + 1;
+                return index;
+            }
+            return -1;
+        } 
+    }
