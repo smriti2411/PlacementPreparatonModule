@@ -1,0 +1,26 @@
+ stack<TreeNode*>stk;
+    bool ret_back;
+    void inorder(TreeNode* root){
+        if(!root||ret_back)return;
+        stk.push(root);
+        inorder(root->left);
+        ret_back=true;
+        return ;
+        inorder(root->right);
+    }
+public:
+    BSTIterator(TreeNode* root) {
+        ret_back=false;
+        inorder(root);
+    }
+    int next() {
+        TreeNode* node=stk.top();
+        stk.pop();
+        ret_back=false;
+        inorder(node->right);
+        return node->val;        
+    }
+    bool hasNext() {
+        if(!stk.empty())return true;
+        else return false;
+    }

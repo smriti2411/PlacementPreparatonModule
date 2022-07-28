@@ -1,0 +1,8 @@
+Node* connect(Node* root) {
+	if(root == NULL) return root;
+	if(root-> left) root->left-> next = root->right; // since it a perfect binary tree we need not worry about right child
+	if(root->right and root->next) root->right-> next = root->next->left;
+	connect(root-> left);
+	connect(root-> right);
+	return root;
+}

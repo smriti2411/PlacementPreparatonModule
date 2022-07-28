@@ -1,0 +1,12 @@
+ vector<int>v;
+    void inorder(TreeNode* root, int k){
+        if(root==NULL) return;
+        inorder(root->left,k);
+        v.push_back(root->val);
+        if(v.size()==k) return;
+        inorder(root->right,k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        inorder(root,k);
+        return v[k-1];
+    }

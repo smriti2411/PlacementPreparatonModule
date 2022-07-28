@@ -1,0 +1,14 @@
+bool v(TreeNode* root,long min,long max){
+        if(root==NULL){
+            return true;
+        }
+        if(root->val > min && root->val < max){
+            bool l=v(root->left,min,root->val);
+            bool r=v(root->right,root->val,max);
+            return l&&r;
+        }
+        return false;
+    }
+    bool isValidBST(TreeNode* root) {
+        return v(root,LONG_MIN,LONG_MAX);
+    }
