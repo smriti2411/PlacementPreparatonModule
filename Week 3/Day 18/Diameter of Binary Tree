@@ -1,0 +1,15 @@
+ int solve(TreeNode* root,int h){
+        if(root==NULL){
+            h=0;
+            return 0;
+        }
+        int lh=0,rh=0;
+        int dl=solve(root->left,lh);
+        int dr=solve(root->right,rh);
+        int curr=lh+rh+1;
+        h=max(lh,rh)+1;
+        return max(max(dl,dr),curr);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        return solve(root,0);
+    }
