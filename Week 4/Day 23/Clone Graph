@@ -1,0 +1,24 @@
+Node* cloneGraph(Node* node) {
+        if(node==NULL)
+            return NULL;
+        map<Node*,Node*> mp;
+        queue<Node*> q;
+        mp[node]=new Node(1);
+        q.push(node);
+        while(!q.empty())
+        {
+            Node*  curr=q.front();
+            q.pop();
+            Node* copycurr=mp[curr];
+            for(auto adjNode:curr->neighbors)
+            {
+                if(mp.find(adjNode)==mp.end())
+                {
+                    mp[adjNode]=new Node(adjNode->val);
+                    q.push(adjNode);
+                }
+                copycurr->neighbors.push_back(mp[adjNode]);
+            }
+        }
+        return mp[node];
+    }

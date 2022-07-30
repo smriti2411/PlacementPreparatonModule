@@ -1,0 +1,43 @@
+ bool helper(int src, vector<vector<int>>& graph, int color[])
+    {
+        queue<int> q;
+        q.push(src);
+        color[src] = 0;
+        while(!q.empty())
+        {
+            int t=q.front();
+            q.pop();
+            int j=graph[t].size();
+            for(int i=0; i<j; i++)
+            {
+                if(color[graph[t][i]] == -1)
+                {
+                    color[graph[t][i]] = 1-color[t]; //it'll take care to change color from 0->1 || 1->0
+                    q.push(graph[t][i]);
+                }
+                else if(color[graph[t][i]]==color[t]) //means it is filled, we are checking if it is same color as parent node t
+                {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n = graph.size();
+        int color[n]; //it can get filled with only 2 colours 0 or 1, -1 means it's not filled yet
+        memset(color, -1, sizeof(color));
+        for(int i=0; i<n; i++)
+        {
+            if(color[i] == -1)
+            {
+                if(!helper(i, graph, color))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
