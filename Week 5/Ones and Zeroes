@@ -1,0 +1,29 @@
+int dp[601][101][101];
+    int traverse(vector<string>& strs,int cur_index,int size,int m,int n){
+        if(cur_index >= strs.size())return 0;
+        if(dp[cur_index][m][n] != -1)return dp[cur_index][m][n];
+        string& cur_str = strs[cur_index];
+        int zero_count(0),one_count(0);
+        for(auto& c:cur_str){
+            if(c == '0'){
+               zero_count++; 
+            }
+            else{
+               one_count++; 
+            }
+        }
+        int cur_max = 0;
+        if(m - zero_count >= 0 && n - one_count >= 0){
+            cur_max = max(traverse(strs,cur_index+1,size,m,n),
+                          1+traverse(strs,cur_index+1,size+1,m-zero_count,n-one_count));
+        }
+        else cur_max = traverse(strs,cur_index+1,size,m,n);
+        dp[cur_index][m][n] = cur_max;
+        return cur_max;
+    }
+    
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        memset(dp,-1,sizeof(dp));
+        traverse(strs,0,0,m,n);
+        return dp[0][m][n];
+    }

@@ -1,0 +1,26 @@
+int coinChange(vector<int>& coins, int amount) {
+        if (amount == 0)
+      return 0;
+    vector<bool> visited(amount, false);
+    deque<int> toVisit{0};
+    int len = 1;
+    int level = 1;
+    while (!toVisit.empty()) {
+      int cur = toVisit.front();
+      toVisit.pop_front();
+      for (const int & coin : coins) {
+        int target = cur + coin;
+        if (target == amount)
+          return level;
+        else if (target < amount && !visited[target]) {
+          visited[target] = true;
+          toVisit.push_back(target);
+        }
+      }
+      if (--len == 0) {
+        ++level;
+        len = toVisit.size();
+      }
+    }
+    return -1;
+    }

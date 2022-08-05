@@ -1,0 +1,21 @@
+int n,ans=0,dp[2501];
+    int dfs(int curr,vector<int>& nums){
+        if(curr>=n)
+            return 0;
+        if(dp[curr]!=-1) // if answer already stored
+            return dp[curr];
+        int mx=1;
+        for(int i=curr+1;i<n;i++){
+            // if the element is greater than current element
+            if(nums[curr]<nums[i])
+                mx=max(mx,1+dfs(i,nums));
+        }
+        return dp[curr]=mx;
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        n=nums.size();
+        memset(dp,-1,sizeof(dp));
+        for(int i=0;i<n;i++)
+            ans=max(ans,dfs(i,nums));
+        return ans;
+    }
